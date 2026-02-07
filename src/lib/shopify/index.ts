@@ -31,9 +31,17 @@ import {
   getShopPoliciesQuery,
 } from './queries';
 
-const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN!;
-const storefrontAccessToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
+const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || '';
+const storefrontAccessToken = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || '';
 const endpoint = `https://${domain}/api/2024-01/graphql.json`;
+
+function ensureConfigured() {
+  if (!domain || !storefrontAccessToken) {
+    throw new Error(
+      'Missing Shopify configuration. Set NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN and NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN environment variables.'
+    );
+  }
+}
 
 type GraphQLResponse<T> = {
   data: T;
@@ -51,6 +59,7 @@ async function shopifyFetch<T>({
   cache?: RequestCache;
   tags?: string[];
 }): Promise<T> {
+  ensureConfigured();
   const res = await fetch(endpoint, {
     method: 'POST',
     headers: {
