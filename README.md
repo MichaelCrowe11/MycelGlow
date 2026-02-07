@@ -1,45 +1,96 @@
-# Hydrogen template: Skeleton
+# MycelGlow - Next.js Headless Shopify Store
 
-Hydrogen is Shopify’s stack for headless commerce. Hydrogen is designed to dovetail with [Remix](https://remix.run/), Shopify’s full stack web framework. This template contains a **minimal setup** of components, queries and tooling to get started with Hydrogen.
+A modern headless e-commerce storefront built with Next.js and the Shopify Storefront API. Features mushroom-based wellness products with a clean, responsive design.
 
-[Check out Hydrogen docs](https://shopify.dev/custom-storefronts/hydrogen)
-[Get familiar with Remix](https://remix.run/docs/en/v1)
+## Tech Stack
 
-## What's included
+- **Next.js 14** - App Router with React Server Components
+- **Shopify Storefront API** - Headless commerce backend
+- **TypeScript** - Full type safety
+- **Tailwind CSS** - Utility-first styling
+- **React Context** - Cart state management
 
-- Remix
-- Hydrogen
-- Oxygen
-- Vite
-- Shopify CLI
-- ESLint
-- Prettier
-- GraphQL generator
-- TypeScript and JavaScript flavors
-- Minimal setup of components and routes
+## Features
 
-## Getting started
+- Product listing and detail pages with image galleries
+- Collection browsing
+- Shopping cart with slide-out drawer
+- Product search
+- Blog / article pages
+- CMS pages
+- Store policy pages
+- Responsive design (mobile-first)
+- SEO metadata for all pages
+- ISR (Incremental Static Regeneration) for fast page loads
 
-**Requirements:**
+## Getting Started
 
-- Node.js version 18.0.0 or higher
+### Prerequisites
+
+- Node.js 18+
+- A Shopify store with Storefront API access
+
+### Setup
+
+1. Clone the repository
+2. Copy `.env.example` to `.env` and fill in your Shopify credentials:
 
 ```bash
-npm create @shopify/hydrogen@latest
+cp .env.example .env
 ```
 
-## Building for production
+```env
+NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=your-store.myshopify.com
+NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=your-storefront-access-token
+```
+
+3. Install dependencies:
 
 ```bash
-npm run build
+npm install
 ```
 
-## Local development
+4. Run the development server:
 
 ```bash
 npm run dev
 ```
 
-## Setup for using Customer Account API (`/account` section)
+Open [http://localhost:3000](http://localhost:3000) to see the store.
 
-Follow step 1 and 2 of <https://shopify.dev/docs/custom-storefronts/building-with-the-customer-account-api/hydrogen#step-1-set-up-a-public-domain-for-local-development>
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── api/cart/           # Cart API route
+│   ├── blog/               # Blog pages
+│   ├── collections/        # Collection pages
+│   ├── pages/              # CMS pages
+│   ├── policies/           # Policy pages
+│   ├── products/           # Product pages
+│   ├── search/             # Search page
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Home page
+├── components/
+│   ├── cart/               # Cart drawer
+│   ├── layout/             # Header, Footer
+│   ├── product/            # Product card, gallery, variants
+│   └── search/             # Search bar
+├── context/
+│   └── cart-context.tsx    # Cart state management
+└── lib/
+    ├── shopify/            # Shopify API client, queries, types
+    └── utils.ts            # Utility functions
+```
+
+## Building for Production
+
+```bash
+npm run build
+npm start
+```
+
+## Deployment
+
+This project is ready to deploy on [Vercel](https://vercel.com). Add your environment variables in the Vercel dashboard.
